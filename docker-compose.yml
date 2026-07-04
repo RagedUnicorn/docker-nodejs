@@ -1,0 +1,20 @@
+# Docker Compose configuration for running Node.js
+#
+# Usage:
+#   docker compose run --rm nodejs
+#   docker compose run --rm nodejs script.js
+#   docker compose run --rm nodejs --help
+#
+# This will run Node.js on your codebase with default settings
+
+services:
+  nodejs:
+    image: ragedunicorn/nodejs:${NODEJS_VERSION:-latest}
+    container_name: nodejs
+    volumes:
+      - ./app:/app
+    working_dir: /app
+    stdin_open: true
+    tty: true
+    environment:
+      - TERM=xterm-256color

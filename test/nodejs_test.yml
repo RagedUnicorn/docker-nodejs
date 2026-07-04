@@ -1,0 +1,30 @@
+schemaVersion: 2.0.0
+
+fileExistenceTests:
+  - name: 'Node.js binary exists'
+    path: '/usr/bin/node'
+    shouldExist: true
+    permissions: '-rwxr-xr-x'
+
+  # npm is a symlink into the npm module tree, so existence only (no permissions)
+  - name: 'npm command exists'
+    path: '/usr/bin/npm'
+    shouldExist: true
+
+  - name: 'npm module tree exists'
+    path: '/usr/lib/node_modules/npm'
+    shouldExist: true
+
+  - name: 'Working directory exists'
+    path: '/app'
+    shouldExist: true
+    isExecutableBy: 'any'
+
+  - name: 'SSL certificates for npm'
+    path: '/etc/ssl/certs/ca-certificates.crt'
+    shouldExist: true
+
+fileContentTests:
+  - name: 'CA certificates installed'
+    path: '/etc/ssl/certs/ca-certificates.crt'
+    expectedContents: ['-----BEGIN CERTIFICATE-----']

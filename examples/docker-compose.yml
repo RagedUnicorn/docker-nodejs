@@ -1,0 +1,31 @@
+# Simple docker-compose example for running Node.js scripts
+#
+# Usage:
+#   docker-compose run --rm hello-world
+#   docker-compose run --rm nodejs-shell
+#   docker-compose run --rm nodejs hello-world.js
+
+services:
+  # Run the hello world example
+  hello-world:
+    image: ragedunicorn/nodejs:${NODEJS_VERSION:-latest}
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: ["hello-world.js"]
+
+  # Interactive Node.js shell (REPL)
+  nodejs-shell:
+    image: ragedunicorn/nodejs:${NODEJS_VERSION:-latest}
+    volumes:
+      - .:/app
+    working_dir: /app
+    stdin_open: true
+    tty: true
+
+  # General Node.js service for running any script
+  nodejs:
+    image: ragedunicorn/nodejs:${NODEJS_VERSION:-latest}
+    volumes:
+      - .:/app
+    working_dir: /app

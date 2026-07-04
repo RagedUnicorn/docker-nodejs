@@ -1,0 +1,36 @@
+# Docker Compose configuration for Node.js development
+#
+# This configuration extends the base build with development-specific settings
+#
+# Usage:
+#   docker compose -f docker-compose.dev.yml build     # Build dev image
+#   docker compose -f docker-compose.dev.yml up -d     # Start dev container
+#   docker compose -f docker-compose.dev.yml exec nodejs-dev sh  # Get shell
+#
+# Features:
+#   - Mounts the entire project for live editing
+#   - Keeps container running for interactive development
+
+services:
+  nodejs-dev:
+    build: .
+    image: ragedunicorn/nodejs:dev
+    volumes:
+      - .:/app
+    working_dir: /app
+    stdin_open: true
+    tty: true
+    # Override entrypoint to get a shell
+    entrypoint: /bin/sh
+    labels:
+      org.opencontainers.image.title: "Node.js on Alpine Linux (Dev)"
+      org.opencontainers.image.description: "Node.js development environment for testing and debugging"
+      org.opencontainers.image.vendor: "ragedunicorn"
+    environment:
+      - TERM=xterm-256color
+    # Resource limits for development (optional)
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '4'
+    #       memory: 4G

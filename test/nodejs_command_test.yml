@@ -1,0 +1,74 @@
+schemaVersion: 2.0.0
+
+commandTests:
+  - name: 'Node.js version check'
+    command: 'node'
+    args: ['--version']
+    expectedOutput:
+      - 'v24'
+    exitCode: 0
+
+  - name: 'npm version check'
+    command: 'npm'
+    args: ['--version']
+    expectedOutput:
+      - '11.'
+    exitCode: 0
+
+  # Alpine's npm defaults the user-facing global prefix to /usr/local; the
+  # apk-managed npm itself lives under /usr/lib, so point ls at that tree
+  - name: 'List global packages'
+    command: 'npm'
+    args: ['ls', '-g', '--prefix', '/usr']
+    expectedOutput:
+      - 'npm@'
+    exitCode: 0
+
+  - name: 'Node.js basic execution'
+    command: 'node'
+    args: ['-e', 'console.log("Hello, World!")']
+    expectedOutput:
+      - 'Hello, World!'
+    exitCode: 0
+
+  - name: 'Node.js process module'
+    command: 'node'
+    args: ['-e', 'console.log(process.version)']
+    expectedOutput:
+      - 'v24'
+    exitCode: 0
+
+  - name: 'Node.js os module'
+    command: 'node'
+    args: ['-e', 'const os = require("os"); console.log("OS module works")']
+    expectedOutput:
+      - 'OS module works'
+    exitCode: 0
+
+  - name: 'Node.js JSON support'
+    command: 'node'
+    args: ['-e', 'JSON.stringify({}); console.log("JSON support works")']
+    expectedOutput:
+      - 'JSON support works'
+    exitCode: 0
+
+  - name: 'Test script execution'
+    setup: [['sh', '-c', 'echo "console.log(\"Script executed\")" > /app/test.js']]
+    command: 'node'
+    args: ['/app/test.js']
+    expectedOutput: ['Script executed']
+    exitCode: 0
+
+  - name: 'Non-root user exists'
+    command: 'id'
+    args: ['node']
+    exitCode: 0
+    expectedOutput:
+      - 'uid='
+      - 'node'
+
+  - name: 'Check working directory'
+    command: 'pwd'
+    args: []
+    expectedOutput: ['/app']
+    exitCode: 0
