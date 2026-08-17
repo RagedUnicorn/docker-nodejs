@@ -4,7 +4,7 @@
 FROM alpine:3.24.1
 
 # renovate: datasource=repology depName=alpine_3_24/nodejs versioning=loose
-ARG NODEJS_VERSION=24.17.0-r0
+ARG NODEJS_VERSION=24.18.1-r0
 # renovate: datasource=repology depName=alpine_3_24/npm versioning=loose
 ARG NPM_VERSION=11.12.1-r0
 ARG BUILD_DATE
