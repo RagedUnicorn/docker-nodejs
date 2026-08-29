@@ -1,5 +1,7 @@
 # Node.js Alpine Docker Image
 
+![Docker Node.js](https://raw.githubusercontent.com/RagedUnicorn/docker-nodejs/master/docs/docker_nodejs_banner.png)
+
 A minimal Node.js image on Alpine Linux, shipping Alpine's Node.js LTS package and npm pinned to exact versions.
 
 ## Quick Start
