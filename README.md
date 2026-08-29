@@ -1,5 +1,7 @@
 # docker-nodejs
 
+![docker-nodejs](docs/docker_nodejs_banner.svg)
+
 [![Release Build](https://github.com/ragedunicorn/docker-nodejs/actions/workflows/docker_release.yml/badge.svg)](https://github.com/ragedunicorn/docker-nodejs/actions/workflows/docker_release.yml)
 [![Test](https://github.com/ragedunicorn/docker-nodejs/actions/workflows/test.yml/badge.svg)](https://github.com/ragedunicorn/docker-nodejs/actions/workflows/test.yml)
 ![License: MIT](docs/license_badge.svg)
