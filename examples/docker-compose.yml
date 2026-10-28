@@ -1,9 +1,9 @@
 # Simple docker-compose example for running Node.js scripts
 #
 # Usage:
-#   docker-compose run --rm hello-world
-#   docker-compose run --rm nodejs-shell
-#   docker-compose run --rm nodejs hello-world.js
+#   docker compose run --rm hello-world
+#   docker compose run --rm nodejs-shell
+#   docker compose run --rm nodejs hello-world.js
 
 services:
   # Run the hello world example

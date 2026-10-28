@@ -77,7 +77,7 @@ docker run --rm ragedunicorn/nodejs:latest -e "console.log('Hello, World!')"
 
 #### Install Packages and Run
 ```bash
-docker run -v $(pwd):/app ragedunicorn/nodejs:latest /bin/sh -c "npm install && node script.js"
+docker run --rm -v $(pwd):/app --entrypoint sh ragedunicorn/nodejs:latest -c "npm install && node script.js"
 ```
 
 #### Check Node.js Version
@@ -92,7 +92,7 @@ docker run --rm --entrypoint npm ragedunicorn/nodejs:latest --version
 
 #### Run Tests
 ```bash
-docker run -v $(pwd):/app ragedunicorn/nodejs:latest /bin/sh -c "npm install && npm test"
+docker run --rm -v $(pwd):/app --entrypoint sh ragedunicorn/nodejs:latest -c "npm install && npm test"
 ```
 
 ## Docker Compose Usage

@@ -12,13 +12,13 @@ The `hello-world.js` script demonstrates basic Node.js functionality in the Dock
 
 ```bash
 # From the examples directory
-docker-compose run --rm hello-world
+docker compose run --rm hello-world
 
 # Or run interactively (REPL)
-docker-compose run --rm nodejs-shell
+docker compose run --rm nodejs-shell
 
 # Run any JavaScript file
-docker-compose run --rm nodejs your-script.js
+docker compose run --rm nodejs your-script.js
 ```
 
 #### Using Docker directly
@@ -64,7 +64,7 @@ If your script needs additional packages:
 
 ```bash
 # Install and run in one command
-docker run -v $(pwd):/app ragedunicorn/nodejs:latest /bin/sh -c "npm install axios && node my-script.js"
+docker run --rm -v $(pwd):/app --entrypoint sh ragedunicorn/nodejs:latest -c "npm install axios && node my-script.js"
 ```
 
 Or create a custom Dockerfile:

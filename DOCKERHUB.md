@@ -49,10 +49,10 @@ docker run --rm ragedunicorn/nodejs:latest -e "console.log('Hello, World!')"
 ### Install packages and run commands
 ```bash
 # Install dependencies and run a script
-docker run -v $(pwd):/app ragedunicorn/nodejs:latest /bin/sh -c "npm install && node script.js"
+docker run --rm -v $(pwd):/app --entrypoint sh ragedunicorn/nodejs:latest -c "npm install && node script.js"
 
 # Install and run the project test suite
-docker run -v $(pwd):/app ragedunicorn/nodejs:latest /bin/sh -c "npm install && npm test"
+docker run --rm -v $(pwd):/app --entrypoint sh ragedunicorn/nodejs:latest -c "npm install && npm test"
 ```
 
 ### Build a custom image
