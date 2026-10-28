@@ -17,8 +17,8 @@ This Docker image provides a minimal Node.js installation built on Alpine Linux.
 ## Features
 
 - **Small footprint**: compact runtime image using Alpine Linux
-- **Node.js 24 LTS**: pinned Alpine package (`24.17.0-r0`)
-- **npm included**: pinned separately (`11.12.1-r0`)
+- **Node.js 24 LTS**: pinned to an exact Alpine package version (see `NODEJS_VERSION` in the [Dockerfile](Dockerfile))
+- **npm included**: pinned separately (see `NPM_VERSION` in the [Dockerfile](Dockerfile))
 - **Non-root user**: Enhanced security with dedicated node user
 - **Volume mounting**: Easy code and data access through `/app`
 
