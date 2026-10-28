@@ -86,30 +86,30 @@ docker build -t ragedunicorn/nodejs:test .
 
 ```bash
 # Run all tests against your local build
-NODEJS_VERSION=test docker compose -f docker-compose.test.yml run test-all
+NODEJS_TEST_VERSION=test docker compose -f docker-compose.test.yml run test-all
 
 # Run specific tests during development
-NODEJS_VERSION=test docker compose -f docker-compose.test.yml up container-test-command
+NODEJS_TEST_VERSION=test docker compose -f docker-compose.test.yml up container-test-command
 ```
 
 **Windows Command Prompt:**
 
 ```cmd
 # Run all tests against your local build
-set NODEJS_VERSION=test && docker compose -f docker-compose.test.yml run test-all
+set NODEJS_TEST_VERSION=test && docker compose -f docker-compose.test.yml run test-all
 
 # Run specific tests during development
-set NODEJS_VERSION=test && docker compose -f docker-compose.test.yml up container-test-command
+set NODEJS_TEST_VERSION=test && docker compose -f docker-compose.test.yml up container-test-command
 ```
 
 **Windows PowerShell:**
 
 ```powershell
 # Run all tests against your local build
-$env:NODEJS_VERSION="test"; docker compose -f docker-compose.test.yml run test-all
+$env:NODEJS_TEST_VERSION="test"; docker compose -f docker-compose.test.yml run test-all
 
 # Run specific tests during development
-$env:NODEJS_VERSION="test"; docker compose -f docker-compose.test.yml up container-test-command
+$env:NODEJS_TEST_VERSION="test"; docker compose -f docker-compose.test.yml up container-test-command
 ```
 
 **Important:** Never test against remote images - they may have different labels or configurations due to CI/CD overrides.

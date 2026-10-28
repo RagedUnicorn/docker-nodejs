@@ -67,21 +67,21 @@ docker build -t ragedunicorn/nodejs:test .
 
 ```bash
 # Run tests against your local build
-NODEJS_VERSION=test docker compose -f docker-compose.test.yml run test-all
+NODEJS_TEST_VERSION=test docker compose -f docker-compose.test.yml run test-all
 ```
 
 **Windows (PowerShell):**
 
 ```powershell
 # Run tests against your local build
-$env:NODEJS_VERSION="test"; docker compose -f docker-compose.test.yml run test-all
+$env:NODEJS_TEST_VERSION="test"; docker compose -f docker-compose.test.yml run test-all
 ```
 
 **Windows (Command Prompt):**
 
 ```cmd
 # Run tests against your local build
-set NODEJS_VERSION=test && docker compose -f docker-compose.test.yml run test-all
+set NODEJS_TEST_VERSION=test && docker compose -f docker-compose.test.yml run test-all
 ```
 
 **Why local testing is important:**
@@ -105,14 +105,14 @@ Linux/macOS:
 
 ```bash
 docker build -t ragedunicorn/nodejs:test .
-NODEJS_VERSION=test docker compose -f docker-compose.test.yml run test-all
+NODEJS_TEST_VERSION=test docker compose -f docker-compose.test.yml run test-all
 ```
 
 Windows (PowerShell):
 
 ```powershell
 docker build -t ragedunicorn/nodejs:test .
-$env:NODEJS_VERSION="test"; docker compose -f docker-compose.test.yml run test-all
+$env:NODEJS_TEST_VERSION="test"; docker compose -f docker-compose.test.yml run test-all
 ```
 
 ### Test Execution
@@ -123,21 +123,21 @@ Run all tests against your local build:
 
 ```bash
 # Ensure you've built locally first!
-NODEJS_VERSION=test docker compose -f docker-compose.test.yml run test-all
+NODEJS_TEST_VERSION=test docker compose -f docker-compose.test.yml run test-all
 ```
 
 **Windows (PowerShell):**
 
 ```powershell
 # Ensure you've built locally first!
-$env:NODEJS_VERSION="test"; docker compose -f docker-compose.test.yml run test-all
+$env:NODEJS_TEST_VERSION="test"; docker compose -f docker-compose.test.yml run test-all
 ```
 
 **Windows (Command Prompt):**
 
 ```cmd
 # Ensure you've built locally first!
-set NODEJS_VERSION=test && docker compose -f docker-compose.test.yml run test-all
+set NODEJS_TEST_VERSION=test && docker compose -f docker-compose.test.yml run test-all
 ```
 
 Run specific test categories:
@@ -146,26 +146,26 @@ Run specific test categories:
 
 ```bash
 # File structure tests
-NODEJS_VERSION=test docker compose -f docker-compose.test.yml up container-test
+NODEJS_TEST_VERSION=test docker compose -f docker-compose.test.yml up container-test
 
 # Command execution and functionality tests
-NODEJS_VERSION=test docker compose -f docker-compose.test.yml up container-test-command
+NODEJS_TEST_VERSION=test docker compose -f docker-compose.test.yml up container-test-command
 
 # Metadata and label tests
-NODEJS_VERSION=test docker compose -f docker-compose.test.yml up container-test-metadata
+NODEJS_TEST_VERSION=test docker compose -f docker-compose.test.yml up container-test-metadata
 ```
 
 **Windows (PowerShell):**
 
 ```powershell
 # File structure tests
-$env:NODEJS_VERSION="test"; docker compose -f docker-compose.test.yml up container-test
+$env:NODEJS_TEST_VERSION="test"; docker compose -f docker-compose.test.yml up container-test
 
 # Command execution and functionality tests
-$env:NODEJS_VERSION="test"; docker compose -f docker-compose.test.yml up container-test-command
+$env:NODEJS_TEST_VERSION="test"; docker compose -f docker-compose.test.yml up container-test-command
 
 # Metadata and label tests
-$env:NODEJS_VERSION="test"; docker compose -f docker-compose.test.yml up container-test-metadata
+$env:NODEJS_TEST_VERSION="test"; docker compose -f docker-compose.test.yml up container-test-metadata
 ```
 
 ### Testing Different Versions
@@ -181,14 +181,14 @@ docker build -t ragedunicorn/nodejs:24-alpine3.24.1-1 .
 
 ```bash
 # Test that specific version
-NODEJS_VERSION=24-alpine3.24.1-1 docker compose -f docker-compose.test.yml run test-all
+NODEJS_TEST_VERSION=24-alpine3.24.1-1 docker compose -f docker-compose.test.yml run test-all
 ```
 
 **Windows (PowerShell):**
 
 ```powershell
 # Test that specific version
-$env:NODEJS_VERSION="24-alpine3.24.1-1"; docker compose -f docker-compose.test.yml run test-all
+$env:NODEJS_TEST_VERSION="24-alpine3.24.1-1"; docker compose -f docker-compose.test.yml run test-all
 ```
 
 ## Troubleshooting Test Failures
@@ -218,7 +218,7 @@ docker run --rm --entrypoint sh ragedunicorn/nodejs:test -c "ls -la /usr/bin/nod
 
 1. **Testing remote images instead of local builds**
    - Remote images (Docker Hub, GHCR) have labels overridden by CI/CD
-   - Always test your local builds with `NODEJS_VERSION=test`
+   - Always test your local builds with `NODEJS_TEST_VERSION=test`
 
 2. **Label value mismatches**
    - CI/CD systems may capitalize values (e.g., "RagedUnicorn" vs "ragedunicorn")
@@ -238,13 +238,13 @@ docker build -t ragedunicorn/nodejs:test .
 Linux/macOS:
 
 ```bash
-NODEJS_VERSION=test docker compose -f docker-compose.test.yml run test-all
+NODEJS_TEST_VERSION=test docker compose -f docker-compose.test.yml run test-all
 ```
 
 Windows (PowerShell):
 
 ```powershell
-$env:NODEJS_VERSION="test"; docker compose -f docker-compose.test.yml run test-all
+$env:NODEJS_TEST_VERSION="test"; docker compose -f docker-compose.test.yml run test-all
 ```
 
 ### Permission Errors
@@ -298,7 +298,7 @@ Manual integration example:
 ```yaml
 - name: Run Container Structure Tests
   env:
-    NODEJS_VERSION: test
+    NODEJS_TEST_VERSION: test
   run: docker compose -f docker-compose.test.yml run test-all
 ```
 
