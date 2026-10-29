@@ -55,14 +55,31 @@ docker run -v $(pwd):/app ragedunicorn/nodejs:24-alpine3.24.1-1 [node-options]
 **Windows (PowerShell):**
 ```powershell
 # Using latest version
-docker run -v ${PWD}:/app ragedunicorn/nodejs:latest [node-options]
+docker run -v "${PWD}:/app" ragedunicorn/nodejs:latest [node-options]
+
+# Using specific Node.js version (latest Alpine build)
+docker run -v "${PWD}:/app" ragedunicorn/nodejs:24 [node-options]
+
+# Using exact version combination
+docker run -v "${PWD}:/app" ragedunicorn/nodejs:24-alpine3.24.1-1 [node-options]
 ```
 
+Write `${PWD}` **with braces** and keep the colon inside the quotes - see the
+[Windows (PowerShell) notes](#windows-powershell-notes) for why.
+
 ### Examples
+
+Examples that mount the current directory have a PowerShell variant below the
+bash one. Examples without a mount run unchanged in PowerShell.
 
 #### Run Node.js Script
 ```bash
 docker run -v $(pwd):/app ragedunicorn/nodejs:latest script.js
+```
+
+PowerShell:
+```powershell
+docker run -v "${PWD}:/app" ragedunicorn/nodejs:latest script.js
 ```
 
 #### Interactive Node.js Shell (REPL)
@@ -80,6 +97,11 @@ docker run --rm ragedunicorn/nodejs:latest -e "console.log('Hello, World!')"
 docker run --rm -v $(pwd):/app --entrypoint sh ragedunicorn/nodejs:latest -c "npm install && node script.js"
 ```
 
+PowerShell:
+```powershell
+docker run --rm -v "${PWD}:/app" --entrypoint sh ragedunicorn/nodejs:latest -c 'npm install && node script.js'
+```
+
 #### Check Node.js Version
 ```bash
 docker run --rm ragedunicorn/nodejs:latest --version
@@ -94,6 +116,44 @@ docker run --rm --entrypoint npm ragedunicorn/nodejs:latest --version
 ```bash
 docker run --rm -v $(pwd):/app --entrypoint sh ragedunicorn/nodejs:latest -c "npm install && npm test"
 ```
+
+PowerShell:
+```powershell
+docker run --rm -v "${PWD}:/app" --entrypoint sh ragedunicorn/nodejs:latest -c 'npm install && npm test'
+```
+
+### Windows (PowerShell) notes
+
+The PowerShell variants above differ from the bash ones in the mount, written
+`-v "${PWD}:/app"` instead of `-v $(pwd):/app`, and in quoting the `sh -c`
+command with single quotes. The mount spelling matters:
+
+- Pasting the bash form into PowerShell breaks: PowerShell ends the argument
+  after the `$(pwd)` subexpression, so `$(pwd):/app` reaches Docker as two
+  arguments (`C:\path` and `:/app`).
+- `"$PWD:/app"` without braces is a parse error: PowerShell reads a colon
+  after a variable as a scope qualifier (as in `$env:PATH`), and `/` is not a
+  valid variable-name character.
+- `"${PWD}:/app"` works: the braces end the variable name at `PWD`, the colon
+  stays literal, and Docker splits the resulting `C:\path:/app` on the second
+  colon because it recognises the `C:` drive prefix.
+
+The single quotes around `'npm install && npm test'` keep the command as one
+literal argument to the container's `sh`, so the `&&` runs inside the
+container. To check what the container actually sees under `/app`, run a
+look-inside command:
+
+```powershell
+docker run --rm -v "${PWD}:/app" --entrypoint sh ragedunicorn/nodejs:latest -c 'pwd; ls -la /app'
+```
+
+Unquoted, PowerShell would treat `;` as its own statement separator and run
+`ls -la /app` on the host.
+
+**File ownership:** the image runs as the non-root `node` user. Docker Desktop
+bind mounts on Windows do not carry Unix file ownership, so files the container
+writes to `/app` (such as `node_modules/` or `package-lock.json`) stay
+accessible to your Windows user without any `--user` matching.
 
 ## Docker Compose Usage
 

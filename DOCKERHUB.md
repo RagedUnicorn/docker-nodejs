@@ -20,6 +20,15 @@ docker run -it --rm ragedunicorn/nodejs:latest
 docker run -v $(pwd):/app ragedunicorn/nodejs:latest script.js
 ```
 
+On Windows, use the PowerShell form - `${PWD}` **with braces** and the colon
+inside the quotes (without braces PowerShell parses `$PWD:` as a
+scope-qualified variable, as in `$env:PATH`, and rejects the argument):
+
+```powershell
+# Run a Node.js script in the current directory
+docker run -v "${PWD}:/app" ragedunicorn/nodejs:latest script.js
+```
+
 ## Features
 
 - 🚀 **Small footprint**: compact runtime image built on Alpine Linux
@@ -31,9 +40,17 @@ docker run -v $(pwd):/app ragedunicorn/nodejs:latest script.js
 
 ## Usage Examples
 
+Examples that mount the current directory have a PowerShell variant below the
+bash one. Examples without a mount run unchanged in PowerShell.
+
 ### Run a Node.js script
 ```bash
 docker run -v $(pwd):/app ragedunicorn/nodejs:latest script.js
+```
+
+PowerShell:
+```powershell
+docker run -v "${PWD}:/app" ragedunicorn/nodejs:latest script.js
 ```
 
 ### Interactive Node.js shell (REPL)
@@ -53,6 +70,15 @@ docker run --rm -v $(pwd):/app --entrypoint sh ragedunicorn/nodejs:latest -c "np
 
 # Install and run the project test suite
 docker run --rm -v $(pwd):/app --entrypoint sh ragedunicorn/nodejs:latest -c "npm install && npm test"
+```
+
+PowerShell (single quotes keep `&&` inside the container's `sh`):
+```powershell
+# Install dependencies and run a script
+docker run --rm -v "${PWD}:/app" --entrypoint sh ragedunicorn/nodejs:latest -c 'npm install && node script.js'
+
+# Install and run the project test suite
+docker run --rm -v "${PWD}:/app" --entrypoint sh ragedunicorn/nodejs:latest -c 'npm install && npm test'
 ```
 
 ### Build a custom image
@@ -92,6 +118,11 @@ The default working directory is `/app`. Mount your code here:
 
 ```bash
 docker run -v $(pwd):/app ragedunicorn/nodejs:latest your_script.js
+```
+
+PowerShell:
+```powershell
+docker run -v "${PWD}:/app" ragedunicorn/nodejs:latest your_script.js
 ```
 
 ## Links
