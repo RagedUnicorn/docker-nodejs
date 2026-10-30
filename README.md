@@ -46,10 +46,10 @@ The container uses Node.js as the entrypoint, so any Node.js parameters can be p
 docker run -v $(pwd):/app ragedunicorn/nodejs:latest [node-options]
 
 # Using specific Node.js version (latest Alpine build)
-docker run -v $(pwd):/app ragedunicorn/nodejs:24 [node-options]
+docker run -v $(pwd):/app ragedunicorn/nodejs:<node-major> [node-options]
 
 # Using exact version combination
-docker run -v $(pwd):/app ragedunicorn/nodejs:24-alpine3.24.1-1 [node-options]
+docker run -v $(pwd):/app ragedunicorn/nodejs:<node-major>-alpine<alpine-version>-<build> [node-options]
 ```
 
 **Windows (PowerShell):**
@@ -58,11 +58,14 @@ docker run -v $(pwd):/app ragedunicorn/nodejs:24-alpine3.24.1-1 [node-options]
 docker run -v "${PWD}:/app" ragedunicorn/nodejs:latest [node-options]
 
 # Using specific Node.js version (latest Alpine build)
-docker run -v "${PWD}:/app" ragedunicorn/nodejs:24 [node-options]
+docker run -v "${PWD}:/app" ragedunicorn/nodejs:<node-major> [node-options]
 
 # Using exact version combination
-docker run -v "${PWD}:/app" ragedunicorn/nodejs:24-alpine3.24.1-1 [node-options]
+docker run -v "${PWD}:/app" ragedunicorn/nodejs:<node-major>-alpine<alpine-version>-<build> [node-options]
 ```
+
+Available tags are listed on [Docker Hub](https://hub.docker.com/r/ragedunicorn/nodejs/tags) and in the
+[GitHub releases](https://github.com/RagedUnicorn/docker-nodejs/releases).
 
 Write `${PWD}` **with braces** and keep the colon inside the quotes - see the
 [Windows (PowerShell) notes](#windows-powershell-notes) for why.
@@ -235,9 +238,12 @@ This project uses semantic versioning that matches the Docker image contents:
 
 **Format:** `{nodejs_major_version}-alpine{alpine_version}-{build_number}`
 
-Examples:
-- `24-alpine3.24.1-1` - Node.js 24 on Alpine 3.24.1, build 1
+Examples (`N` is the Node.js major version, `A.B.C` the Alpine version):
+- `N-alpineA.B.C-1` - Node.js N on Alpine A.B.C, build 1
+- `N` - Most recent build of Node.js N
 - `latest` - Most recent stable release
+
+The current tags are listed on [Docker Hub](https://hub.docker.com/r/ragedunicorn/nodejs/tags).
 
 For detailed release process and versioning guidelines, see [RELEASE.md](RELEASE.md).
 

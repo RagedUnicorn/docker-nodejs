@@ -59,17 +59,21 @@ The development mode:
 # Basic build
 docker build -t ragedunicorn/nodejs:dev .
 
-# Build with specific versions
+# Build with version metadata (Node.js, npm and Alpine come from the Dockerfile)
 docker build \
   --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
-  --build-arg VERSION=24-alpine3.24.1-1 \
-  -t ragedunicorn/nodejs:24-alpine3.24.1-1 .
+  --build-arg VERSION=dev \
+  -t ragedunicorn/nodejs:dev .
 
 # Multi-platform build (requires buildx)
 docker buildx build \
   --platform linux/amd64,linux/arm64 \
   -t ragedunicorn/nodejs:dev .
 ```
+
+The Node.js and npm versions are the `NODEJS_VERSION` and `NPM_VERSION`
+defaults in the `Dockerfile` and the Alpine version is its `FROM` line.
+Renovate keeps them current, so the docs do not repeat them.
 
 ### 3. Testing Your Changes
 
@@ -206,7 +210,8 @@ USER node
 docker build --progress=plain --no-cache -t ragedunicorn/nodejs:debug .
 
 # Check the pinned package versions still exist on the Alpine branch
-docker run --rm alpine:3.24.1 sh -c "apk update >/dev/null && apk policy nodejs npm"
+# (use the alpine version from the Dockerfile's FROM line)
+docker run --rm alpine:<alpine-version> sh -c "apk update >/dev/null && apk policy nodejs npm"
 ```
 
 **Node.js not working:**

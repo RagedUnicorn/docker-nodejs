@@ -6,8 +6,10 @@ This document describes how to create a new release for the Docker Node.js proje
 
 ```bash
 # Tag format: v{nodejs_major_version}-alpine{alpine_version}-{build_number}
-git tag -a v24-alpine3.24.1-1 -m "v24-alpine3.24.1-1"
-git push origin v24-alpine3.24.1-1
+# Take the versions from the Dockerfile (the NODEJS_VERSION major and the FROM line)
+TAG=v<node-major>-alpine<alpine-version>-<build>
+git tag -a "$TAG" -m "$TAG"
+git push origin "$TAG"
 ```
 
 This automatically triggers the release process via GitHub Actions.
@@ -18,11 +20,11 @@ See [README.md](README.md#versioning) for the complete versioning documentation.
 
 **Format:** `v{nodejs_major_version}-alpine{alpine_version}-{build_number}`
 
-Examples:
-- `v24-alpine3.24.1-1` - Initial release
-- `v24-alpine3.24.1-2` - Rebuild with same versions
-- `v24-alpine3.24.2-1` - Alpine update (build resets to 1)
-- `v24-alpine3.25.0-1` - Major Alpine update (build resets to 1)
+Examples (`N` is the Node.js major version, `A.B.C` the Alpine version):
+- `vN-alpineA.B.C-1` - First build of Node.js N on Alpine A.B.C
+- `vN-alpineA.B.C-2` - Rebuild with same versions
+- `vN-alpineA.B.D-1` - Alpine update (build resets to 1)
+- `vN-alpineA.B+1.0-1` - Alpine minor update (build resets to 1)
 
 ## Release Workflow
 
@@ -58,15 +60,19 @@ Create a new release when:
 
 ### Update Docker Hub Documentation
 
-After creating a release, manually update the Docker Hub repository description:
+`DOCKERHUB.md` is the source of truth for the Docker Hub repository
+description. It deliberately contains no concrete versions (readers find those
+in the Tags tab), so a release alone does not require a description update.
+Only when `DOCKERHUB.md` changed since the last sync:
 
 1. Go to [Docker Hub](https://hub.docker.com/r/ragedunicorn/nodejs)
 2. Click "Manage Repository" → "Description"
 3. Copy the contents of `DOCKERHUB.md`
-4. Update any version numbers in the examples to match the latest release
-5. Save the changes
+4. Save the changes
 
-**Note**: The `DOCKERHUB.md` file is maintained in the repository as the source of truth for Docker Hub documentation.
+**Note**: the sync stays manual on purpose. Docker Hub only offers an
+undocumented endpoint for description updates, and it needs a separate
+Read/Write/Delete access token.
 
 ## Best Practices
 
@@ -101,7 +107,7 @@ Before creating a release:
 
 ### Release didn't trigger
 
-- Ensure tag starts with `v` and follows the format (e.g., `v24-alpine3.24.1-1`)
+- Ensure tag starts with `v` and follows the format (e.g., `vN-alpineA.B.C-B`)
 - Check GitHub Actions tab for workflow runs
 - Verify you have push permissions
 
@@ -140,10 +146,10 @@ If automation fails, you can create a release manually:
 
 1. Go to repository's "Releases" page
 2. Click "Create a new release"
-3. Choose your tag (must follow format: `v24-alpine3.24.1-1`)
+3. Choose your tag (must follow format: `vN-alpineA.B.C-B`)
 4. Add release notes
-5. Include Docker pull commands:
+5. Include Docker pull commands (the tag without the leading `v`):
    ```
-   docker pull ghcr.io/ragedunicorn/docker-nodejs:24-alpine3.24.1-1
-   docker pull ragedunicorn/nodejs:24-alpine3.24.1-1
+   docker pull ghcr.io/ragedunicorn/docker-nodejs:<tag>
+   docker pull ragedunicorn/nodejs:<tag>
    ```

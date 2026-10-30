@@ -10,8 +10,8 @@ A minimal Node.js image on Alpine Linux, shipping Alpine's Node.js LTS package a
 # Pull latest version
 docker pull ragedunicorn/nodejs:latest
 
-# Or pull specific version
-docker pull ragedunicorn/nodejs:24-alpine3.24.1-1
+# Or pull specific version (see the Tags tab for the available versions)
+docker pull ragedunicorn/nodejs:<node-major>-alpine<alpine-version>-<build>
 
 # Run Node.js interactively (REPL)
 docker run -it --rm ragedunicorn/nodejs:latest
@@ -105,10 +105,15 @@ This image uses semantic versioning that includes all component versions:
 
 ### Version Examples
 
-- `24-alpine3.24.1-1` - Initial release with Node.js 24 and Alpine 3.24.1
-- `24-alpine3.24.1-2` - Rebuild of same versions (bug fixes, security patches)
-- `24-alpine3.24.2-1` - Alpine Linux patch update
+`N` is the Node.js major version, `A.B.C` the Alpine version:
+
+- `N-alpineA.B.C-1` - Node.js N on Alpine A.B.C, first build
+- `N-alpineA.B.C-2` - Rebuild of same versions (bug fixes, security patches)
+- `N-alpineA.B.D-1` - Alpine Linux patch update
+- `N` - Most recent build of Node.js N
 - `latest` - Most recent stable release
+
+The available versions are listed in the [Tags tab](https://hub.docker.com/r/ragedunicorn/nodejs/tags).
 
 The pinned Node.js and npm package versions are fixed per release and tracked by automated dependency management. When updates are available, new releases are created with appropriate version tags.
 
