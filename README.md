@@ -238,9 +238,9 @@ This project uses semantic versioning that matches the Docker image contents:
 
 **Format:** `{nodejs_major_version}-alpine{alpine_version}-{build_number}`
 
-Examples (`N` is the Node.js major version, `A.B.C` the Alpine version):
-- `N-alpineA.B.C-1` - Node.js N on Alpine A.B.C, build 1
-- `N` - Most recent build of Node.js N
+Examples (`X` is the Node.js major version, `A.B.C` the Alpine version):
+- `X-alpineA.B.C-1` - Node.js X on Alpine A.B.C, build 1
+- `X` - Most recent build of Node.js X
 - `latest` - Most recent stable release
 
 The current tags are listed on [Docker Hub](https://hub.docker.com/r/ragedunicorn/nodejs/tags).
