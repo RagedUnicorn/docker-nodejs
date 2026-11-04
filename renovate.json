@@ -32,7 +32,6 @@
       "groupSlug": "nodejs"
     }
   ],
-  "commitMessagePrefix": "chore(deps):",
   "commitMessageAction": "update",
   "commitMessageTopic": "{{depName}}",
   "commitMessageExtra": "to {{newVersion}}",
