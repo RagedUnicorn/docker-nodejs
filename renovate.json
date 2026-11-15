@@ -30,6 +30,21 @@
       ],
       "groupName": "nodejs",
       "groupSlug": "nodejs"
+    },
+    {
+      "description": "Ship Alpine base image patch bumps in the same PR as the Node.js and npm apk pins: all 3.24.x images share the v3.24 package index, so a separate base bump fails to build until the pin PR catches up. Automerge so it never blocks the automerged pin updates",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "alpine"
+      ],
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "groupName": "nodejs",
+      "groupSlug": "nodejs",
+      "automerge": true
     }
   ],
   "commitMessageAction": "update",
