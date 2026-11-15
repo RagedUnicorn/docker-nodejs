@@ -1,7 +1,7 @@
 ############################################
 # Node.js runtime image
 ############################################
-FROM alpine:3.24.3
+FROM alpine:3.24.4
 
 # renovate: datasource=repology depName=alpine_3_24/nodejs versioning=loose
 ARG NODEJS_VERSION=24.22.3-r0
@@ -20,7 +20,7 @@ LABEL org.opencontainers.image.title="Node.js on Alpine Linux" \
       org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.version="${VERSION}" \
       org.opencontainers.image.created="${BUILD_DATE}" \
-      org.opencontainers.image.base.name="docker.io/library/alpine:3.24.3"
+      org.opencontainers.image.base.name="docker.io/library/alpine:3.24.4"
 
 # Node.js LTS from the Alpine main repository, npm from the Alpine community
 # repository. nodejs and npm are separate aports with independent versions,
